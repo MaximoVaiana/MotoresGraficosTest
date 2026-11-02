@@ -266,7 +266,9 @@ GameObject:
   - component: {fileID: 9008375255987609148}
   - component: {fileID: 6784528849239902669}
   - component: {fileID: 248221818532572650}
+  - component: {fileID: 2591508038044756286}
   - component: {fileID: 567840114563457005}
+  - component: {fileID: 1195872927883086020}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -363,6 +365,18 @@ MonoBehaviour:
   health: 50
   healthText: {fileID: 5123313092801728607}
   healthBar: {fileID: 6335138899251196432}
+--- !u!114 &2591508038044756286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3065002530083144247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc2d5574060225408123041b40c47d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyNavigation
 --- !u!136 &567840114563457005
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -386,6 +400,28 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &1195872927883086020
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3065002530083144247}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4102628021037669187
 GameObject:
   m_ObjectHideFlags: 0
