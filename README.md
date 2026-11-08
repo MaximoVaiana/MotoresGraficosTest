@@ -1,2 +1,2 @@
-# MotoresGraficosTest
-Proyecto en el que se prueba lo hecho en clase
+# Primera Persona
+Trabajo para motores graficos de mecanicas en primera persona.
