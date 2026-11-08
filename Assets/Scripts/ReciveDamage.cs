@@ -7,10 +7,11 @@ public class ReciveDamage : MonoBehaviour
     public int health = 50;
     public TextMeshProUGUI healthText;
     public Image healthBar;
+    public EnemyNavigation enemyNavigation;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        enemyNavigation = GetComponent<EnemyNavigation>();
     }
 
     // Update is called once per frame
@@ -18,7 +19,7 @@ public class ReciveDamage : MonoBehaviour
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
+            enemyNavigation.Die();
         }
 
         healthText.text = health.ToString();
