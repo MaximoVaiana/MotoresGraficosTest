@@ -5,6 +5,7 @@ using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
@@ -16,10 +17,19 @@ public class Health : MonoBehaviour
     public TextMeshProUGUI healthPoints;
     public GameObject gameOver;
     public FirstPersonController firstPersonController;
+    public AudioSource music;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        music.Play();
+        StartCoroutine(MusicStop());
+    }
+
+    IEnumerator MusicStop()
+    {
+        yield return new WaitForSeconds(100);
+        music.Stop();
     }
 
     // Update is called once per frame
@@ -33,6 +43,10 @@ public class Health : MonoBehaviour
 
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Time.timeScale = 1;
         }
 
         healthPoints.text = ("HP: " + health);
@@ -56,7 +70,11 @@ public class Health : MonoBehaviour
 
     public void Reiniciar()
     {
-        Time.timeScale -= 1f;
+        Time.timeScale = 1f;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

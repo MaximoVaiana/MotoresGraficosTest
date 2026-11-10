@@ -7,7 +7,7 @@ public class ReciveDamage : MonoBehaviour
     public int health = 50;
     public int maxHealth = 50;
     public TextMeshProUGUI healthText;
-    public Image healthBar;
+    public Image healthBar; 
     public EnemyNavigation enemyNavigation;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

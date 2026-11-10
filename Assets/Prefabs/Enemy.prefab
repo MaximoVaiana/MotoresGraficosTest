@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReciveDamage
   health: 50
+  maxHealth: 50
   healthText: {fileID: 5123313092801728607}
   healthBar: {fileID: 6335138899251196432}
   enemyNavigation: {fileID: 0}
@@ -383,6 +384,8 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   isDead: 0
   enemyHealth: {fileID: 1586533835051560316}
+  isBoss: 0
+  enemy: {fileID: 3065002530083144247}
 --- !u!136 &567840114563457005
 CapsuleCollider:
   m_ObjectHideFlags: 0

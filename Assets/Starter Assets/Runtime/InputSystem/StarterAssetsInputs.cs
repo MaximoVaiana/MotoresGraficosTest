@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Audio;
+
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using System.Collections;
@@ -28,9 +31,15 @@ namespace StarterAssets
 		public float projectileForce = 20;
 		public float cooldown;
 		public bool cooldownDone = true;
+		public bool powerUp = false;
+		public float powerUpTime = 20;
+        public Image timerBar;
+        public float tiempoTotal = 0f;
+        public float tiempoRestante = 0;
+		public AudioSource ProjectileSound;
 
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -97,6 +106,7 @@ namespace StarterAssets
 			{
                 GameObject newProjectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, transform.rotation);
                 newProjectile.GetComponent<Rigidbody>().AddForce(projectileSpawnPoint.up * projectileForce, ForceMode.Impulse);
+				ProjectileSound.Play();
 				cooldownDone = false;
                 StartCoroutine(ShootCooldown());
 
@@ -109,6 +119,47 @@ namespace StarterAssets
             yield return new WaitForSeconds(cooldown);
 
 			cooldownDone=true;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Box"))
+            {
+                Destroy(other.gameObject);
+				powerUp = true;
+				tiempoRestante = 20;
+				tiempoTotal = 20;
+				StartCoroutine(ActivePowerUp());
+            }
+        }
+
+		IEnumerator ActivePowerUp()
+		{
+			yield return new WaitForSeconds(powerUpTime);
+			powerUp = false;
+		}
+
+        private void Update()
+        {
+            if (powerUp)
+			{
+				cooldown = 0.01f;
+			}
+			else
+			{
+				cooldown = 0.15f;
+			}
+
+            if (tiempoRestante > 0)
+            {
+                tiempoRestante -= Time.deltaTime;
+                timerBar.fillAmount = tiempoRestante / tiempoTotal;
+            }
+            else
+            {
+                tiempoRestante = 0;
+                timerBar.fillAmount = 0;
+            }
         }
     }
 	
