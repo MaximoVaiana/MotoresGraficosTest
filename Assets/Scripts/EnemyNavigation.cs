@@ -8,6 +8,7 @@ public class EnemyNavigation : MonoBehaviour
     public Animator enemyAnimator;
     public bool isDead = false;
     public GameObject enemyHealth;
+    public bool isBoss = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,18 +22,7 @@ public class EnemyNavigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDead)
-        {
-            return;
-        }
-        if (agent.velocity.magnitude > 0.1)
-        {
-            enemyAnimator.SetBool("IsMoving", true);
-        }
-        else
-        {
-            enemyAnimator.SetBool("IsMoving", false);
-        }
+
     }
 
     private void UpdateTarget()
@@ -49,6 +39,24 @@ public class EnemyNavigation : MonoBehaviour
             isDead = true;
             Destroy(enemyHealth);
             GetComponent<CapsuleCollider>().enabled = false;
+
+            if (isBoss)
+            {
+                ReciveDamage[] enemies = FindObjectsByType<ReciveDamage>(FindObjectsSortMode.None);
+
+                foreach (ReciveDamage enemy in enemies)
+                {
+                    if (enemy.gameObject != gameObject)
+                    {
+                        enemy.health = 0;
+                    }
+                }
+
+                foreach (GameObject spawner in GameObject.FindGameObjectsWithTag("Spawner"))
+                {
+                    Destroy(spawner);
+                }
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using System.Collections;
 #endif
 
 namespace StarterAssets
@@ -25,6 +26,8 @@ namespace StarterAssets
 		public GameObject projectilePrefab;
 		public Transform projectileSpawnPoint;
 		public float projectileForce = 20;
+		public float cooldown;
+		public bool cooldownDone = true;
 
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
@@ -90,11 +93,23 @@ namespace StarterAssets
 
 		private void Shoot()
 		{
-			GameObject newProjectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, transform.rotation);
-			newProjectile.GetComponent<Rigidbody>().AddForce(projectileSpawnPoint.up * projectileForce, ForceMode.Impulse);
+			if (cooldownDone)
+			{
+                GameObject newProjectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, transform.rotation);
+                newProjectile.GetComponent<Rigidbody>().AddForce(projectileSpawnPoint.up * projectileForce, ForceMode.Impulse);
+				cooldownDone = false;
+                StartCoroutine(ShootCooldown());
 
-			Destroy(newProjectile, 5f);
+                Destroy(newProjectile, 5f);
+            }
 		}
-	}
+
+        IEnumerator ShootCooldown()
+        {
+            yield return new WaitForSeconds(cooldown);
+
+			cooldownDone=true;
+        }
+    }
 	
 }

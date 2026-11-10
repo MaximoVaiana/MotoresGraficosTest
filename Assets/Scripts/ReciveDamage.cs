@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ReciveDamage : MonoBehaviour
 {
     public int health = 50;
+    public int maxHealth = 50;
     public TextMeshProUGUI healthText;
     public Image healthBar;
     public EnemyNavigation enemyNavigation;
@@ -23,7 +24,7 @@ public class ReciveDamage : MonoBehaviour
         }
 
         healthText.text = health.ToString();
-        healthBar.fillAmount = health / 100f *2;
+        healthBar.fillAmount = (float)health / maxHealth;
     }
 
     private void OnCollisionEnter(Collision collision)
